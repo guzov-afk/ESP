@@ -46,6 +46,14 @@ import senko
 
 OTA = senko.Senko(user="guzov-afk",repo="ESP",files=["boot.py","main.py"])
 
+import machine
+import time
+
+led = machine.Pin(2,machine.Pin.OUT)
+
+while True:
+    led.value(1)
+
 
 
 
