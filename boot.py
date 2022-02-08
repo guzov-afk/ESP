@@ -27,30 +27,27 @@ def connect_wlan(ssid, password):
     return True
 
 
-def main():
+
     """Main function. Runs after board boot, before main.py
     Connects to Wi-Fi and checks for latest OTA version.
     """
-
-    gc.collect()
-    gc.enable()
+gc.collect()
+gc.enable()
 
     # Wi-Fi credentials
-    SSID = ""
-    PASSWORD = ""
+    
 
-    connect_wlan("EXP", "201060dx")
+connect_wlan("EXP", "201060dx")
 
     # Install Senko from PyPi
-    upip.install("micropython-senko")
+upip.install("micropython-senko")
 
-    import senko
-    OTA = senko.Senko(user="guzu-afk", repo="ESP",files=["main.py"])
+import senko
+OTA = senko.Senko(user="guzov-afk", repo="ESP",files=["main.py"])
 
-    if OTA.update():
-        print("Updated to the latest version! Rebooting...")
-        machine.reset()
+if OTA.update():
+    print("Updated to the latest version! Rebooting...")
+    machine.reset()
 
 
-if __name__ == "__main__":
-    main()
+
