@@ -45,7 +45,7 @@ def main():
     upip.install("micropython-senko")
 
     import senko
-    OTA = senko.Senko(user="guzu-afk", repo="ESP", working_dir="main", files=["main.py"])
+    OTA = senko.Senko(user="guzu-afk", repo="ESP",files=["main.py"])
 
     if OTA.update():
         print("Updated to the latest version! Rebooting...")
