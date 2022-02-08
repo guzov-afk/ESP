@@ -44,13 +44,6 @@ upip.install("micropython-senko")
 
 import senko
 OTA = senko.Senko(user="guzov-afk", repo="ESP",files=["main.py"])
-import machine
-import time
-
-led = machine.Pin(2,machine.Pin.OUT)
-
-while True:
-    led.value(1)
     
 if OTA.update():
     print("Updated to the latest version! Rebooting...")
