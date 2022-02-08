@@ -1,50 +1,30 @@
-import gc
-import machine
-import network
-import upip
+def connectToWifiAndUpdate():
+    import time, machine, network, gc
+    time.sleep(1)
+    print('Memory free', gc.mem_free())
 
+    from app.ota_updater import OTAUpdater
 
-def connect_wlan(ssid, password):
-    """Connects build-in WLAN interface to the network.
-    Args:
-        ssid: Service name of Wi-Fi network.
-        password: Password for that Wi-Fi network.
-    Returns:
-        True for success, Exception otherwise.
-    """
     sta_if = network.WLAN(network.STA_IF)
-    ap_if = network.WLAN(network.AP_IF)
-    sta_if.active(True)
-    ap_if.active(False)
-
     if not sta_if.isconnected():
-        print("Connecting to WLAN ({})...".format(ssid))
+        print('connecting to network...')
         sta_if.active(True)
-        sta_if.connect(ssid, password)
+        sta_if.connect("EXP", "201060dx")
         while not sta_if.isconnected():
             pass
+    print('network config:', sta_if.ifconfig())
+    otaUpdater = OTAUpdater('https://github.com/guzov-afk/ESP/edit/main/', files = "boot.py")
+    hasUpdated = otaUpdater.install_update_if_available()
+    if hasUpdated:
+        machine.reset()
+    else:
+        del(otaUpdater)
+        gc.collect()
 
-    return True
 
-    """Main function. Runs after board boot, before main.py
-    Connects to Wi-Fi and checks for latest OTA version.
-    """
 
-gc.collect()
-gc.enable()
 
-    # Wi-Fi credentials
-SSID = "EXP"
-PASSWORD = "201060dx"
-
-connect_wlan(SSID, PASSWORD)
-
-    # Install Senko from PyPi
-upip.install("micropython-senko")
-
-import senko
-
-OTA = senko.Senko(user="guzov-afk",repo="ESP",files=["boot.py","main.py"])
+connectToWifiAndUpdate()
 
 import machine
 import time
