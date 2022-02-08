@@ -43,7 +43,7 @@ connect_wlan(SSID, PASSWORD)
 upip.install("micropython-senko")
 
 import senko
-GITHUB_URL = "https://github.com/guzov-afk/esp32/blob/main/"
+GITHUB_URL = "https://github.com/guzov-afk/ESP/tree/main"
 OTA = senko.Senko(url=GITHUB_URL,files=["boot.py","main.py"])
 
 if OTA.update():
