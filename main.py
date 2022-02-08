@@ -1,5 +1,2 @@
 
-
-led = machine.Pin(2,machine.Pin.OUT)
-while True:
-  led.value(1)
+print("HELLO")
